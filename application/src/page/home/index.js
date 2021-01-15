@@ -2,7 +2,7 @@
  * @ Author: ZhengHui
  * @ Create Time: 2021-01-10 00:41:57
  * @ Modified by: ZhengHui
- * @ Modified time: 2021-01-10 20:52:20
+ * @ Modified time: 2021-01-14 21:01:37
  * @ Description:
  */
 import React from 'react';
@@ -21,6 +21,7 @@ import * as fanyiAction from '../../action/fanyiAction';
 const HomeIndex = ({navigation}) => {
   return (
     <Header
+      rightImage
       leftClick={() => {
         navigation.openDrawer();
       }}
@@ -33,18 +34,7 @@ const HomeIndex = ({navigation}) => {
                 marginTop: 50,
               }}>
               <View style={styles.search_box}>
-                <TextInput
-                  placeholder="请输入要查询的词汇"
-                  placeholderTextColor="#333"
-                  style={styles.search_input}></TextInput>
-                <Button
-                  title="GO !"
-                  color="#fff"
-                  onPress={() => {
-                    // navigation.navigate('MePage');
-                    fanyiAction.getFanyiAction('世界');
-                  }}
-                />
+                <Text style={styles.search_box_txt}>Just do it</Text>
               </View>
               {/* 翻译主体*/}
               <View
@@ -91,8 +81,17 @@ const styles = StyleSheet.create({
   },
   search_box: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    // justifyContent: 'space-between',
+    height: 300,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+  },
+  search_box_txt: {
+    fontSize: 22,
+    margin: 20,
+    color: '#ed7374',
+    fontWeight: '500',
   },
   resText: {
     color: '#fff',

@@ -2,7 +2,7 @@
  * @ Author: ZhengHui
  * @ Create Time: 2021-01-10 19:50:28
  * @ Modified by: ZhengHui
- * @ Modified time: 2021-01-10 23:07:17
+ * @ Modified time: 2021-01-14 21:12:05
  * @ Description:
  */
 
@@ -16,6 +16,8 @@ import {
   StyleSheet,
   Platform,
   Image,
+  TextInput,
+  Keyboard,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -34,15 +36,18 @@ function Header({
 }) {
   const navigation = useNavigation();
   const scheme = useColorScheme();
+  const [isKeybored, setKeyboredHeight] = React.useState(false);
   // StatusBar.setBackgroundColor('#fff');
   StatusBar.setBarStyle(scheme == 'dark' ? 'light-content' : 'dark-content');
   return (
-    <SafeAreaView style={[styles.header_body]} edges={['top']}>
+    <SafeAreaView style={[styles.header_body]} edges={['top', 'bottom']}>
+      {child()}
       <View style={styles.titleTopbar}>
         <TouchableOpacity
           onPress={() => {
             if (typeof leftClick === 'function') {
               leftClick();
+              Keyboard.dismiss();
             } else {
               navigation.goBack();
             }
@@ -54,9 +59,13 @@ function Header({
           />
         </TouchableOpacity>
         {title ? (
-          <Text style={styles.title} numberOfLines={1}>
-            {title}
-          </Text>
+          // <Text style={styles.title} numberOfLines={1}>
+          //   {title}
+          // </Text>
+          <TextInput
+            style={styles.title}
+            placeholderTextColor="#ddd"
+            placeholder="请输入要查询的单词"></TextInput>
         ) : null}
         {rightTitle ? (
           <TouchableOpacity
@@ -90,16 +99,15 @@ function Header({
             style={styles.rightTitle}>
             <Image
               style={{
-                height: 24,
-                width: 24,
+                height: 20,
+                width: 20,
               }}
-              source={icon}
+              source={require('../../src/static/home/nav_list.png')}
               color={styles.iconsty.color}
             />
           </TouchableOpacity>
         ) : null}
       </View>
-      {child()}
     </SafeAreaView>
   );
 }
@@ -128,11 +136,16 @@ const styles = StyleSheet.create({
   titleTopbar: {
     paddingRight: 20,
     paddingLeft: 20,
-    height: 44,
+    height: 50,
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#312c51',
     alignItems: 'center',
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+
     // borderBottomWidth: 1,
     // borderBottomColor: '#fff',
   },
